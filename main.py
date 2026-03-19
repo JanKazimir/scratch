@@ -16,9 +16,9 @@ def ask_for_double(num: DoubleInput):
     
 
 class Salary(BaseModel):
-    salary: StrictInt
-    bonus: StrictInt
-    taxes: StrictInt
+    salary: int
+    bonus: int
+    taxes: int
 
 
 @app.exception_handler(RequestValidationError)
