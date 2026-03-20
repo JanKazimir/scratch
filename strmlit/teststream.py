@@ -21,13 +21,15 @@ st.markdown("# Welcome to Immo Eliza!")
 st.markdown("We ***pretend*** to do real estate analysis, for an AI/ML bootcamp with Becode. What follows is based on real data scrapped from Immovlan.be in february 2026")
 
 st.markdown("This is what we're working with:")
-df_head = df.head(20)
+st.markdown("24k+ rows, 23 columns of data")
+
+df_head = df.head(5)
 df_head
 
 st.markdown("## Introduction and discovery: ")
 
 ## Printing the df.info : it's quite ugly actually
-st.markdown("Let's get our bearings: \n   We have: 24k+ rows, 23 columns. ")
+#st.markdown("Let's get our bearings: \n ")
 buffer = io.StringIO()          # create the fake file
 df.info(buf=buffer)             # tell info() to write there instead of stdout
 info_text = buffer.getvalue()   # pull the text out as a regular string
@@ -39,8 +41,10 @@ df_intro = pd.DataFrame({"Missing values count": df.isnull().sum(), "Data Type":
 st.dataframe(df_intro)
 
 
+## Property types
+st.markdown("#### Property types:")
+
 # looking at property types:
-st.markdown("#### Visualize property types:")
 test = df.groupby('property_type')['property_subtype'].value_counts().unstack()
 test = test[test.sum().sort_values(ascending=False).index]
 fig, ax = plt.subplots(figsize=(10, 6))
@@ -50,7 +54,7 @@ ax.set_ylabel("Count")
 ax.set_title("Property Subtypes by Property Type", fontsize=16, fontweight='bold')
 plt.xticks(rotation=45, ha='right')
 plt.tight_layout()
-st.pyplot(fig)
+#st.pyplot(fig)
 
 ### Proportion of properties:
 df['property_type'].value_counts()
@@ -58,9 +62,6 @@ subtypes = df['property_subtype'].value_counts()
 types = df['property_type'].value_counts()
 test = df.groupby('property_type')['property_subtype'].value_counts().unstack()
 test = test[test.sum().sort_values(ascending=False).index]
-
-#df.groupby('property_type')['property_subtype'].value_counts().unstack().plot(kind='bar', stacked=True, ax=axes[1])
-#test.plot(kind='bar', stacked=True, ax=axes[1])
 
 fig, axes = plt.subplots(1,2, figsize=(14, 6), sharey=True)
 
@@ -74,7 +75,6 @@ axes[0].set_ylabel('Number of Properties', fontsize=12)
 axes[0].grid(True, alpha=0.3)
 
 test.plot(kind='bar', stacked=True, ax=axes[1], colormap='rainbow')
-#axes[1].bar(test.index, test.values, alpha=0.7)
 axes[1].set_title('Property Sub-Types', fontsize=16, fontweight='bold')
 axes[1].set_xlabel('Sub-Types', fontsize=12)
 axes[1].set_ylabel('Number of Properties', fontsize=12)
@@ -84,10 +84,8 @@ plt.tight_layout()
 plt.show()
 st.pyplot(fig)
 
-
-
-st.markdown("#### Visualize Data Health:")
-st.markdown("(higher is better)")
+st.markdown("#### Data Health:")
+st.markdown("This graphs the percentage of values present (not null) for each column. (higher is better)")
 
 
 
