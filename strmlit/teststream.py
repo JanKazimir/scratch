@@ -126,11 +126,13 @@ st.pyplot(fig)
 
 
 ### Distribution of prices : look how high and low it goes
-st.markdown("#### Price distribution")
+st.markdown("#### Price distribution by locality.")
 st.markdown("***This is the most important graph here.*** \n")
 st.markdown("The national median price per m2 of real estate is 2463.86€/m2 (represented by the grey line)**")
 st.markdown(" This shows the median price per m2, for each zipcode, ranked from highest to lowest. \n  On the left, are the most expensive localities, on the right, the most affrodable. ")
-st.markdown("The *shape* of the curve is what matters: median price per square meter goes from north of 8000€/m^2 to less than 1000€/m^2. Also notice how the vast bulk of localities are between 4000 and 1000€/m2,  ")
+st.markdown("The *shape* of the curve is what matters: median price per square meter goes from north of 8000€/m^2 to less than 1000€/m^2. Also notice how the vast bulk of localities are between 4000 and 1000€/m2. \n ")
+st.markdown("So. Real estate prices can go from stupidly high to unbelieably low. Even for the bulk of houses, the price ranges from 1000 - 4000, a 4X increase! ")
+
 # all_prices_by_zip is your sorted Series (descending)
 fig, ax = plt.subplots(figsize=(12, 5))
 all_prices_by_zip = df.groupby(['zip_code', 'locality'])['price_by_m2'].median().sort_values(ascending=False).round(2)
