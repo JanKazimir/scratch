@@ -10,4 +10,4 @@ dependencies = [
 ]
 
 [tool.fastapi]
-entrypoint = "main:app"
+entrypoint = "fasttest.main:app"
